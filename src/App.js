@@ -1,32 +1,23 @@
-import { Container, Grid, Header, Segment, Statistic } from 'semantic-ui-react';
+import { Button, Container, Form, Grid, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
 import './App.css';
+import ButtonSaveOrCancel from './components/ButtonSaveOrCancel';
+import DisplayBalance from './components/DisplayBalance';
+import DisplayBalances from './components/DisplayBalances';
+import EntryLine from './components/EntryLine';
+import MainHeader from './components/MainHeader';
+import NewEntryForm from './components/NewEntryForm';
 
 function App() {
   return (
    <Container>
-      <Header as="h1">Budget</Header>
-      <Statistic size="small">
-        <Statistic.Label>Your Balance:</Statistic.Label>
-        <Statistic.Value>1,550,53</Statistic.Value>
-      </Statistic>
-      <Segment textAlign='center'>
-        <Grid columns={2} divided>
-          <Grid.Row>
-            <Grid.Column>
-              <Statistic size='tiny' color='green'>
-                <Statistic.Label style={{textAlign: 'center'}}>Incoming:</Statistic.Label>
-                <Statistic.Value>1,045.50</Statistic.Value>
-              </Statistic>
-            </Grid.Column>
-            <Grid.Column>
-              <Statistic size='tiny' color='red'>
-                <Statistic.Label style={{textAlign: 'center'}}>Incoming:</Statistic.Label>
-                <Statistic.Value>625.50</Statistic.Value>
-              </Statistic>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+    <MainHeader title="Budget" />
+      <DisplayBalance title="Your Balance" value='$12390' size='small'/>
+      <DisplayBalances />
+      <MainHeader type='h3' title='History' />
+      <EntryLine description="income" value="300" />
+      <EntryLine description="expense" value="40" isExpense="true" />
+      <MainHeader type='h3' title='Add new Transaction' />
+      <NewEntryForm />
    </Container>
   );
 }
