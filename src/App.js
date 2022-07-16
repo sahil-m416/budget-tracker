@@ -40,8 +40,8 @@ function App() {
          return totalIncome += entry.value
     })
     setTotal(totalIncome-totalExpense)
-    setTotalIncome(totalIncome)
-    setTotalExpense(totalExpense)
+    setTotalIncome(Number(totalIncome))
+    setTotalExpense(Number(totalExpense))
   }, [entries])
   
   
