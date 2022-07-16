@@ -7,7 +7,7 @@ import EntryLines from './components/EntryLines';
 import MainHeader from './components/MainHeader';
 import ModalEdit from './components/ModalEdit';
 import NewEntryForm from './components/NewEntryForm';
-
+import {createStore} from 'redux'
 function App() {
   const [entries, setEntries] = useState(initialEntry)
   const [description, setDescription] = useState("")
@@ -44,8 +44,44 @@ function App() {
     setTotalIncome(Number(totalIncome))
     setTotalExpense(Number(totalExpense))
   }, [entries])
-  
-  
+
+
+  // // ----------------------------------
+  // //       REDUX CODE STARTS HERE
+  // // -----------------------------------
+
+const store = createStore((state =initialEntry, action) => {
+  console.log("This is ", action)
+  switch (action.type) {
+    case 'ADD_ENTRY':
+      const newEntries= state.concat({...action.payload})
+      return newEntries
+    case 'REMOVE_ENTRY':
+      console.log("remove")
+      break
+    default:
+      return state
+  }
+})
+store.subscribe(() =>{
+  console.log('store', store.getState())
+})
+const payload_add = {
+        id:5, 
+        description: "HEllo Redux",
+        value: 100,
+        isExpense: false
+}
+
+const payload_remove = {
+  id: 1
+}
+
+
+
+store.dispatch({type: 'ADD_ENTRY', payload: payload_add})
+store.dispatch({type: 'REMOVE_ENTRY', payload: payload_remove})
+  // // ----------------------------  
   const addEntry =() => {
     const result = entries.concat({id: entries.length+1, description, value, isExpense})
     setEntries(result)
