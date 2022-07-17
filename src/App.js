@@ -7,8 +7,8 @@ import EntryLines from './components/EntryLines';
 import MainHeader from './components/MainHeader';
 import ModalEdit from './components/ModalEdit';
 import NewEntryForm from './components/NewEntryForm';
+import { useSelector} from 'react-redux'
 function App() {
-  const [entries, setEntries] = useState(initialEntry)
   const [description, setDescription] = useState("")
   const [value, setValue] = useState('')
   const [isExpense, setIsExpense] = useState(true)
@@ -17,6 +17,7 @@ function App() {
   const [totalIncome, setTotalIncome] = useState(0)
   const [totalExpense, setTotalExpense] = useState(0)
   const [total, setTotal] = useState(0)
+  const entries = useSelector(state => state.entries)
   useEffect(() => {
     if(!isOpen && entryId){
       const index = entries.findIndex(entry => entry.id === entryId)
@@ -24,7 +25,7 @@ function App() {
       newEntries[index].description = description
       newEntries[index].value = value
       newEntries[index].isExpense = isExpense
-      setEntries(newEntries)
+      // // setEntries(newEntries)
       resetEntry()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,9 +36,9 @@ function App() {
     let totalExpense = 0
     entries.map(entry => {
       if(entry.isExpense){
-         return totalExpense += entry.value
+         return totalExpense += Number(entry.value)
       }
-         return totalIncome += entry.value
+         return totalIncome += Number(entry.value)
     })
     setTotal(totalIncome-totalExpense)
     setTotalIncome(Number(totalIncome))
@@ -48,7 +49,7 @@ function App() {
 
   const addEntry =() => {
     const result = entries.concat({id: entries.length+1, description, value, isExpense})
-    setEntries(result)
+    // // setEntries(result)
     resetEntry()
   }
   
@@ -64,10 +65,6 @@ function App() {
       setIsOpen(true)
     }
   }
-  const deleteEntry = (id) => {
-    const result = entries.filter(entry => entry.id !== id)
-    setEntries(result)
-  }
 
   
   const resetEntry = () => {
@@ -82,10 +79,9 @@ function App() {
       <DisplayBalance title="Your Balance" value={total} size='small'/>
       <DisplayBalances totalIncome={totalIncome} totalExpense={totalExpense} />
       <MainHeader type='h3' title='History' />
-      <EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry}/>
+      <EntryLines entries={entries} editEntry={editEntry}/>
       <MainHeader type='h3' title='Add new Transaction' />
       <NewEntryForm 
-        addEntry={addEntry}
         description={description}
         value={value}
         isExpense={isExpense}
@@ -109,29 +105,3 @@ function App() {
 }
 
 export default App;
-var initialEntry = [
-  {
-    id: 1,
-    description:"Work Income",
-    value : 100000,
-    isExpense : false
-  },
-  {
-    id: 2,
-    description:"Water Bill",
-    value : 20,
-    isExpense : true
-  },
-  {
-    id: 3,
-    description:"Rent",
-    value : 300,
-    isExpense : true
-  },
-  {
-    id: 4,
-    description:"Power Bill",
-    value : 50,
-    isExpense: true
-  }
-]
