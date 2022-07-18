@@ -29,6 +29,13 @@ function useEntryDetails(desc="", val="", isExp=true) {
         dispatch(
             closeEditModal()
         )
+        resetValues()
+    }
+
+    function resetValues(){
+        setDescription('')
+        setValue('')
+        setIsExpense(true)
     }
     const addEntry = () => {
         dispatch(addEntryRedux({
@@ -37,9 +44,7 @@ function useEntryDetails(desc="", val="", isExp=true) {
             value,
             isExpense
         }))
-        setDescription('')
-        setValue('')
-        setIsExpense(true)
+        resetValues()
     }
     return {
         description,
