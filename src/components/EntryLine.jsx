@@ -5,7 +5,6 @@ import { removeEntryRedux } from './../actions/entries.actions'
 import { openEditModal } from '../actions/modals.actions'
 function EntryLine({ id, description, value, isExpense = false }) {
     const dispatch = useDispatch();
-    dispatch({ type: 'TEST_MESSAGE' })
     return (
         <Fragment>
             <Segment color={isExpense ? 'red' : 'green'}>
