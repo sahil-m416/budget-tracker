@@ -7,7 +7,8 @@ import EntryLines from './components/EntryLines';
 import MainHeader from './components/MainHeader';
 import ModalEdit from './components/ModalEdit';
 import NewEntryForm from './components/NewEntryForm';
-import { useSelector} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
+import { getAllEntries } from './actions/entries.actions';
 function App() {
   
   const [totalIncome, setTotalIncome] = useState(0)
@@ -35,6 +36,13 @@ function App() {
     setTotalExpense(Number(totalExpense))
   }, [entries])
 
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(getAllEntries())
+  }, [dispatch])
+  
+  
   return (
    <Container>
     <MainHeader title="Budget" />

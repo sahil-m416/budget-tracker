@@ -2,6 +2,8 @@ import entriesTypes from './../actions/entries.actions'
 const reducer =    (state =initialEntry, action) => {
   let newEntries
   switch (action.type) {
+    case entriesTypes.POPULATE_ENTRIES:
+      return action.payload
     case entriesTypes.ADD_ENTRY:
       newEntries= state.concat({...action.payload})
       return newEntries
@@ -19,31 +21,6 @@ const reducer =    (state =initialEntry, action) => {
 }
 
 
-var initialEntry = [
-  {
-    id: 1,
-    description:"Work Income redux",
-    value : 100000,
-    isExpense : false
-  },
-  {
-    id: 2,
-    description:"Water Bill redux",
-    value : 20,
-    isExpense : true
-  },
-  {
-    id: 3,
-    description:"Rent redux",
-    value : 300,
-    isExpense : true
-  },
-  {
-    id: 4,
-    description:"Power Bill redux",
-    value : 50,
-    isExpense: true
-  }
-]
+var initialEntry = []
 
 export default reducer
