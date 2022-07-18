@@ -1,5 +1,4 @@
 const reducer =    (state =initialEntry, action) => {
-  console.log("This is ", action)
   let newEntries
   switch (action.type) {
     case 'ADD_ENTRY':
