@@ -5,7 +5,7 @@
 // ? to make a funtion generator function, just put a * after the function keyword
 
 // ? A generator function can return multiple values
-import { call, delay, fork, put, take } from 'redux-saga/effects'
+import { call, delay,  put, take } from 'redux-saga/effects'
 
 function double(number){
     return number*2

@@ -13,6 +13,7 @@ export function* getAllEntries(){
 export function* getEntryDetails(id) {
     const {data} = yield call(axios, `http://localhost:5000/values/${id}`)
     console.log(data)
+    yield put({type: entriesTypes.POPULATE_ENTRY_DETAILS, payload: {id, entry:data}})
 }
 
 export function* getAllEntriesDetails(){
