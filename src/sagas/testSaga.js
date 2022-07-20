@@ -5,7 +5,7 @@
 // ? to make a funtion generator function, just put a * after the function keyword
 
 // ? A generator function can return multiple values
-import { call, delay,  put, take } from 'redux-saga/effects'
+import { call, delay,  fork,  put, take, takeEvery } from 'redux-saga/effects'
 
 function double(number){
     return number*2
@@ -35,13 +35,32 @@ function* doNothing(){
 export function* testSagaFork(){
     while(true){
         yield take('TEST_MESSAGE_2')
-        yield call(doNothing)
+        yield fork(doNothing)
+        yield fork(doNothing)
+        yield fork(doNothing)
     }
+}
+
+
+export function* testSageTakeEveryProcess({payload}){
+    console.log('Starting Process for index = ', payload)
+    yield delay(3000)
+    console.log('Endin Process for index = ', payload)
+}
+
+
+export function* testSageTakeEvery() {
+    const {payload} = yield takeEvery("TEST_MESSAGE_3", testSageTakeEveryProcess)
+    console.log('finished take every at index = ', payload)
 }
 export function* dispatchTest() {
+    let index = 0
     while(true){
-        yield delay(5000)
+        yield delay(500)
         // ? Listening to dispatches
-        yield put({type:'TEST_MESSAGE_2', payload: 1000})
+        yield put({type:'TEST_MESSAGE_3', payload: index})
+        index++
     }
 }
+
+
