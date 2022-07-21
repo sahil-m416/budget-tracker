@@ -7,7 +7,7 @@ export function* getAllEntries(){
     console.log('Ineed to get all the entries now')
     const {data} = yield call(axios, 'http://localhost:5000/entries')
     console.log(data)
-    yield put(populateEntries())
+    yield put(populateEntries(data))
  }
 
 export function* getEntryDetails(id) {
