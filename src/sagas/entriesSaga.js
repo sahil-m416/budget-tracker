@@ -1,6 +1,6 @@
 import axios from "axios";
 import { call, fork, put, take } from "redux-saga/effects";
-import types, { populateEntries, populateEntryDetails } from "./../actions/entries.actions";
+import { populateEntries, populateEntryDetails } from "./../actions/entries.actions";
 import entriesTypes from './../actions/entries.actions'
 export function* getAllEntries(){
     yield take(entriesTypes.GET_ENTRIES)
